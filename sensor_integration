@@ -1,0 +1,191 @@
+include <SoftwareSerial.h>
+include <WiFi.h>
+include <ThingSpeak.h>
+include <LiquidCrystal_I2C.h>
+include "DHT.h"
+define DHTPIN 4 // DHT11 data pin
+define DHTTYPE DHT11 // DHT11 sensor type
+DHT dht(DHTPIN, DHTTYPE);
+// Soil moisture sensor pin
+define  soilPin  35
+// Ultrasonic sensor pin
+const int echoPin = 23; 
+const int trigPin  = 5; 
+int relayPin = 27; // Buzzer pin difinition
+//define sound speed in cm/uS
+define SOUND_SPEED 0.034
+define CM_TO_INCH 0.393701
+long duration;
+float distance;
+float distanceInch;
+// WiFi credentials
+const char* ssid =  "Islington-College"; //"Islington-College";
+const char* password =   "I$LiNGT0N2023";//"I$LiNGT0N2023";
+// ThingSpeak credentials
+unsigned long channelID = 2099380;
+const char* writeAPIKey = "EIQ0YHESH61MB9BB";
+//SoftwareSerial SIM800L(18, 19); // RX, TX
+// Initialize WiFi client
+WiFiClient client;
+// Initialize LCD I2C
+LiquidCrystal_I2C lcd (0x27, 16, 2); // I2C address 0x3F, 16 column and 2 rows
+void setup() {
+  Serial.begin(115200);
+  delay(10);
+  // SIM800L.begin(115200);
+  // Serial.println("Testing SIM800L communication...");
+  // SIM800L.println("AT");
+  // delay(1000);
+  // Serial.println("Configuring SIM800L for SMS...");
+  // SIM800L.println("AT+CMGF=1"); // Set SMS mode to text
+  // delay(1000);
+  // SIM800L.println("AT+CNMI=2,2,0,0,0"); // New SMS message indications  
+  // Connect to WiFi network
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  // Initialize ThingSpeak
+  ThingSpeak.begin(client);
+  // Initialize LCD I2C
+  lcd.init();
+  lcd.backlight();
+  dht.begin(); // Initialize dht sensor
+  // initialize ultrasonic sensor
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);  
+  pinMode(relayPin, OUTPUT); // initialize buzzer
+  pinMode(soilPin, INPUT); // Initiallize soil moisture sensor
+}
+void loop() {
+  // Wait a few seconds between measurements.
+  delay(5000);
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float humidity = dht.readHumidity();
+  // Read temperature as Celsius (the default)
+  float temperature = dht.readTemperature();
+  // Read temperature as Fahrenheit (isFahrenheit = true)
+  float fahren = dht.readTemperature(true);
+  // distance measurement and beep for buzzer
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculate the distance
+  distance = duration * SOUND_SPEED / 2;
+  // Prints the distance in the Serial Monitor
+  Serial.print("Distance (cm): ");
+  Serial.println(distance);
+  if (distance <= 15) 
+  {      
+    digitalWrite (relayPin, HIGH);
+  }
+  else  
+  {
+    digitalWrite (relayPin, LOW);  
+  }
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(humidity) || isnan(temperature) || isnan(fahren)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+  // Compute heat index in Fahrenheit (the default)
+  float hif = dht.computeHeatIndex(fahren, humidity);
+  // Compute heat index in Celsius (isFahreheit = false)
+  float hic = dht.computeHeatIndex(temperature, humidity, false);
+  Serial.print(F("Humidity: "));
+  Serial.print(humidity);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(temperature);
+  Serial.print(F("°C "));
+  Serial.print(fahren);
+  Serial.print(F("°F  Heat index: "));
+  Serial.print(hic);
+  Serial.print(F("°C "));
+  Serial.print(hif);
+  Serial.println(F("°F"));
+  // Read soil moisture sensor value
+  int soilValue = analogRead(soilPin);
+  // Scale soil moisture value to a range of 0-100
+  int soilMoisture = ( 100 - ( (soilValue/4095.00) * 100 ) );
+  // Print soil moisture value to serial monitor
+  Serial.print("Soil moisture: ");
+  Serial.print(soilMoisture);
+  Serial.println("%");
+  // Write temperature and humidity values to ThingSpeak fields
+  ThingSpeak.setField(1, temperature);
+  ThingSpeak.setField(2, humidity);
+  // Update ThingSpeak channel with soil moisture value
+  ThingSpeak.setField(3, soilMoisture);
+  // Write to the ThingSpeak channel
+  int x = ThingSpeak.writeFields(channelID, writeAPIKey);
+  if(x == 200) 
+  {
+    Serial.println("Channel update successful.");
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Channel updated");
+    delay(1000);
+    // Display temperature and humidity values on LCD I2C
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("T:");
+    lcd.print(temperature);
+    lcd.print("C ");
+    lcd.print("H:");
+    lcd.print(humidity);
+    lcd.print("%");
+    lcd.setCursor(0,1);
+    lcd.print("Soil ms: ");
+    lcd.print(soilMoisture);
+    lcd.print(" %");
+  }
+  else
+  {
+    Serial.println("Problem updating channel. HTTP error code " + String(x));
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Update failed");
+  }
+   if(x != 200 ) 
+   {
+     if (soilMoisture < 15 || soilMoisture > 80)
+     {
+       String phoneNumber = "+9779745374559"; // Replace with recipient phone number
+       String message = "Alert! Soil Moisture: " + String(soilMoisture); // Replace with your message
+       sendSMS(phoneNumber, message);
+     }
+     if (temperature < 5 || temperature > 40)
+     {
+       String phoneNumber = "+9779745374559"; // Replace with recipient phone number
+       String message = "Alert! Temperature: " + String(temperature); // Replace with your message
+       sendSMS(phoneNumber, message);
+     }
+   }
+}
+// creating a methods to send message while in danger signs without internet connectivity
+   void sendSMS(String phoneNumber, String message) {
+     SIM800L.println("AT+CMGF=1"); // Set SMS mode to text
+     delay(1000);
+     SIM800L.print("AT+CMGS=\"");
+     SIM800L.print(phoneNumber);
+     SIM800L.println("\"");
+     delay(1000);
+     SIM800L.print(message);
+     delay(100);
+     SIM800L.write((byte) 26); // End of message character
+     delay(1000);
+     Serial.println("Message sent.");
+   }
+
