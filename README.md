@@ -24,13 +24,13 @@ The solution to these problems is temperature and humidity monitoring device. Th
 
 This section will describe the step-by-step process that we took to build the project. Development provides an overview of the process used to create the system being described. For this development, one development methodology we employed was the Waterfall methodologies. By strictly following this methodology are prompted to only proceed to the next part of the development step after we have completed the one we are working on. We approached the development of our system in phases. The phases are described below,
 Phase 1:
-•	For the initial phase, we started gathering all the necessary materials required for the project. The materials include: ESP32 Wi-Fi module, a DHT11 sensor, a soil moisture sensor, an LCD, a breadboard, an ultrasonic sensor, a buzzer and a USB cable. Given that we were handed an ESP32 Wi-Fi module a microcontroller which we had no prior knowledge of, we spent the remainder of this development phase researching on the parts and their functionalities, especially that of the ESP32 Wi-Fi module. 
+- For the initial phase, we started gathering all the necessary materials required for the project. The materials include: ESP32 Wi-Fi module, a DHT11 sensor, a soil moisture sensor, an LCD, a breadboard, an ultrasonic sensor, a buzzer and a USB cable. Given that we were handed an ESP32 Wi-Fi module a microcontroller which we had no prior knowledge of, we spent the remainder of this development phase researching on the parts and their functionalities, especially that of the ESP32 Wi-Fi module. 
 Phase 2:
-•	For this phase, we looked up on the libraries that were needed for the project. The libraries were needed in order to program the equipments in Arduino IDE. We started off by installing the libraries on the Arduino IDE, since we had no knowledge of which libraries we had to install, our module leader provided us with the library ZIP file which we downloaded and installed it to the Arduino IDE directly. Libraries included: “LCD Library”,” DHT11 Library”, “Adafruit Sensor Library”, “ThingSpeak Library”, “Wi-Fi Library”. 
+- For this phase, we looked up on the libraries that were needed for the project. The libraries were needed in order to program the equipments in Arduino IDE. We started off by installing the libraries on the Arduino IDE, since we had no knowledge of which libraries we had to install, our module leader provided us with the library ZIP file which we downloaded and installed it to the Arduino IDE directly. Libraries included: “LCD Library”,” DHT11 Library”, “Adafruit Sensor Library”, “ThingSpeak Library”, “Wi-Fi Library”. 
 Phase 3:
-•	In this phase, we connected all the equipments together on a breadboard. We started off by connecting the DHT11 sensor, soil moisture sensor, ESP32 Wi-Fi module and LCD on the breadboard. Afterwards we tested the DHT11 sensor by placing in room temperature and soil moisture sensor by inserting it inside soil and checked if they measured accurate measurements. After verifying that the measurements were accurate, we displayed those measurements on the LCD and subsequently sent it to the ThingSpeak platform in order to view the data remotely. Later, we proceeded to connect ultrasonic sensor and buzzer in the breadboard. 
+- In this phase, we connected all the equipments together on a breadboard. We started off by connecting the DHT11 sensor, soil moisture sensor, ESP32 Wi-Fi module and LCD on the breadboard. Afterwards we tested the DHT11 sensor by placing in room temperature and soil moisture sensor by inserting it inside soil and checked if they measured accurate measurements. After verifying that the measurements were accurate, we displayed those measurements on the LCD and subsequently sent it to the ThingSpeak platform in order to view the data remotely. Later, we proceeded to connect ultrasonic sensor and buzzer in the breadboard. 
 Phase 4:
-•	This was our final phase while developing the project. In this phase, we wrote the code for ultrasonic sensor and the buzzer. We programmed it in such a way that when the ultrasonic sensor detects an object, the buzzer emits a high frequency sound.
+- This was our final phase while developing the project. In this phase, we wrote the code for ultrasonic sensor and the buzzer. We programmed it in such a way that when the ultrasonic sensor detects an object, the buzzer emits a high frequency sound.
 
  
 ## Results and Findings
@@ -38,40 +38,38 @@ After the completion of the project, the system displayed accurate measurements 
 
  
 ### Test Case:
-1)	Checking soil moisture sensor’s readings when it is not placed at any medium
- 
-Figure 9: Findings of moisture sensor when it is not placed at any medium
+- Checking soil moisture sensor’s readings when it is not placed at any medium
+  
+Findings of moisture sensor when it is not placed at any medium
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 0% as shown in figure above; since the sensor is not given any medium to operate.
  
-2) Checking soil moisture sensor’s readings while placing it inside soil.
+- Checking soil moisture sensor’s readings while placing it inside soil.
 
  
-Figure 10: Findings of moisture sensor when placed on a muddy soil.
+Findings of moisture sensor when placed on a muddy soil.
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 51% as shown in figure above; since the sensor is inserted inside the soil.
 
  
-3) Checking soil moisture sensor’s reading while placing it inside water.
+- Checking soil moisture sensor’s reading while placing it inside water.
  
-Figure 11: Findings of moisture sensor when placed on a water.
+             Findings of moisture sensor when placed on a water.
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 59% as shown in figure above; since the sensor is inserted inside water.
  
-
-4) Checking the readings of DHT11 sensor on room temperature.
+- Checking the readings of DHT11 sensor on room temperature.
 
  
-Figure 12: Readings of temperature and humidity from DHT-11
+            Readings of temperature and humidity from DHT-11
 The reading of temperature and humidity detected by the DHT11 sensor in LCD display is represented by “T” for temperature and “H” for humidity. The unit of the measurement for temperature is in Celsius (C). The temperature is 23.30-degree celsius and humidity is 50 percent. as shown in figure above when the sensor is placed in room temperature.
 
 
  
-5) Checking the readings of DHT11 sensor while placing it below Dryer.
+- Checking the readings of DHT11 sensor while placing it below Dryer.
 
  
-		Figure 13: Test Of DHT 11 Below the dryer
+              Test Of DHT 11 Below the dryer
 The reading of temperature and humidity detected by the DHT11 sensor in LCD display is represented by “T” for temperature and “H” for humidity. The unit of the measurement for temperature is in Celsius (C). The temperature is 41.20 degree Celsius and humidity is 15.00 percentage as shown in figure above when the sensor is placed below dryer.
 
-
-6) Checking if the buzzer emits sound when ultrasonic sensor detects an object.
+- Checking if the buzzer emits sound when ultrasonic sensor detects an object.
  
-		Figure 14: Test of Ultrasonic Sensor
+		Figure : Test of Ultrasonic Sensor
 When we placed an a box less than  15cm away from the ultrasonic sensor, the buzzer starting emitting sound.
