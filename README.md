@@ -11,34 +11,13 @@ The solution to these problems is temperature and humidity monitoring device. Th
 
 ## Design Diagrams (Hardware Architecture, Flowchart, Circuit diagram) 
 ### 	HARDWARE ARCHITECTURE
-https://github.com/user-attachments/assets/3759f5a6-b918-4785-8c6c-2fa43c6c0c5a
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+![Screenshot 2024-08-11 104023](https://github.com/user-attachments/assets/268ef246-cdee-4411-91b8-cb18834e28ca) 
 ### FLOWCHART OF THE SYSTEM
 
-
-
- 
+![Screenshot 2024-08-11 104047](https://github.com/user-attachments/assets/54767e92-5964-451c-a8da-c4de89e7baea)
 				Figure 6: Flowchart of the system
 ## CIRCUIT DIAGRAM
-
- 
+![Screenshot 2024-08-11 104059](https://github.com/user-attachments/assets/cba9983e-0009-4169-a868-43bbae3d5400)
 		Figure 7: Circuit diagram of the system
  
 ## 	Development
