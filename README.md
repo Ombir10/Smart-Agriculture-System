@@ -37,6 +37,7 @@ After the completion of the project, the system displayed accurate measurements 
  
 ### Test Case:
 - Checking soil moisture sensor’s readings when it is not placed at any medium
+  
   ![Screenshot 2024-08-11 105448](https://github.com/user-attachments/assets/448f043a-8870-42d8-829b-dfb451ecddfe)
        Findings of moisture sensor when it is not placed at any medium
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 0% as shown in figure above; since the sensor is not given any medium to operate.
