@@ -15,10 +15,8 @@ The solution to these problems is temperature and humidity monitoring device. Th
 ### FLOWCHART OF THE SYSTEM
 
 ![Screenshot 2024-08-11 104047](https://github.com/user-attachments/assets/54767e92-5964-451c-a8da-c4de89e7baea)
-				Figure 6: Flowchart of the system
 ## CIRCUIT DIAGRAM
 ![Screenshot 2024-08-11 104059](https://github.com/user-attachments/assets/cba9983e-0009-4169-a868-43bbae3d5400)
-		Figure 7: Circuit diagram of the system
  
 ## 	Development
 
@@ -39,37 +37,31 @@ After the completion of the project, the system displayed accurate measurements 
  
 ### Test Case:
 - Checking soil moisture sensor’s readings when it is not placed at any medium
-  
-Findings of moisture sensor when it is not placed at any medium
+  ![Screenshot 2024-08-11 105448](https://github.com/user-attachments/assets/448f043a-8870-42d8-829b-dfb451ecddfe)
+       Findings of moisture sensor when it is not placed at any medium
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 0% as shown in figure above; since the sensor is not given any medium to operate.
  
 - Checking soil moisture sensor’s readings while placing it inside soil.
-
- 
-Findings of moisture sensor when placed on a muddy soil.
+  ![Screenshot 2024-08-11 105503](https://github.com/user-attachments/assets/1d8a7706-3f40-4156-9a27-fe7d85cb5264)
+        Findings of moisture sensor when placed on a muddy soil.
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 51% as shown in figure above; since the sensor is inserted inside the soil.
-
  
 - Checking soil moisture sensor’s reading while placing it inside water.
- 
+ ![Screenshot 2024-08-11 105512](https://github.com/user-attachments/assets/d8eb45a5-04cb-4c7d-9992-6f6e72c67496)
              Findings of moisture sensor when placed on a water.
 The reading of the moisture of the soil by the soil moisture (FC-28) in LCD display is represented by ‘soil ms’ and the unit of the measurement is in percentage. The soil moisture measures 59% as shown in figure above; since the sensor is inserted inside water.
  
 - Checking the readings of DHT11 sensor on room temperature.
-
- 
+![Screenshot 2024-08-11 105521](https://github.com/user-attachments/assets/0b8fde0f-3ba9-4f80-9e69-8c6d91dde4eb)
             Readings of temperature and humidity from DHT-11
 The reading of temperature and humidity detected by the DHT11 sensor in LCD display is represented by “T” for temperature and “H” for humidity. The unit of the measurement for temperature is in Celsius (C). The temperature is 23.30-degree celsius and humidity is 50 percent. as shown in figure above when the sensor is placed in room temperature.
 
-
- 
 - Checking the readings of DHT11 sensor while placing it below Dryer.
-
- 
+![Screenshot 2024-08-11 105530](https://github.com/user-attachments/assets/2787b441-def3-42db-858f-8a3db1d1e4b0)
               Test Of DHT 11 Below the dryer
 The reading of temperature and humidity detected by the DHT11 sensor in LCD display is represented by “T” for temperature and “H” for humidity. The unit of the measurement for temperature is in Celsius (C). The temperature is 41.20 degree Celsius and humidity is 15.00 percentage as shown in figure above when the sensor is placed below dryer.
 
 - Checking if the buzzer emits sound when ultrasonic sensor detects an object.
- 
+ ![Screenshot 2024-08-11 105539](https://github.com/user-attachments/assets/c52dcf8d-0315-450a-ba57-e2a066b90dbf)
 		Figure : Test of Ultrasonic Sensor
 When we placed an a box less than  15cm away from the ultrasonic sensor, the buzzer starting emitting sound.
